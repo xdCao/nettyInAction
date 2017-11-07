@@ -18,28 +18,28 @@ import java.net.InetSocketAddress;
 
 public class ChannelOptionActiuon {
 
-    public static void main(String[] args) {
-        final AttributeKey<Integer> id=AttributeKey.newInstance("ID");
-        Bootstrap bootstrap=new Bootstrap();
-        bootstrap.group(new NioEventLoopGroup())
-                .channel(NioSocketChannel.class)
-                .handler(new SimpleChannelInboundHandler<ByteBuf>() {
-                    @Override
-                    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-                        Integer idValue=ctx.channel().attr(id).get();
-
-                    }
-
-                    @Override
-                    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-                        System.out.println("data received");
-                    }
-                });
-        bootstrap.option(ChannelOption.SO_KEEPALIVE,true)
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS,5000);
-        bootstrap.attr(id,123456);
-        ChannelFuture future = bootstrap.connect(new InetSocketAddress("www.baidu.com", 80));
-        future.syncUninterruptibly();
-    }
+//    public static void main(String[] args) {
+//        final AttributeKey<Integer> id=AttributeKey.newInstance("ID");
+//        Bootstrap bootstrap=new Bootstrap();
+//        bootstrap.group(new NioEventLoopGroup())
+//                .channel(NioSocketChannel.class)
+//                .handler(new SimpleChannelInboundHandler<ByteBuf>() {
+//                    @Override
+//                    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+//                        Integer idValue=ctx.channel().attr(id).get();
+//
+//                    }
+//
+//                    @Override
+//                    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
+//                        System.out.println("data received");
+//                    }
+//                });
+//        bootstrap.option(ChannelOption.SO_KEEPALIVE,true)
+//                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS,5000);
+//        bootstrap.attr(id,123456);
+//        ChannelFuture future = bootstrap.connect(new InetSocketAddress("www.baidu.com", 80));
+//        future.syncUninterruptibly();
+//    }
 
 }
