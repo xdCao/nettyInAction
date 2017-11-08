@@ -13,17 +13,17 @@ import java.util.concurrent.Executor;
 @ChannelHandler.Sharable
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf in= (ByteBuf) msg;
-        System.out.println("Server received: "+in.toString(CharsetUtil.UTF_8));
-        ctx.write(in);
-    }
+    private int counter=0;
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        String body= (String) msg;
+        System.out.println("This is "+(++counter)+" times receive : ["+body+"]");
+        body+="$_";
+        ByteBuf echo=Unpooled.copiedBuffer(body.getBytes());
+        ctx.writeAndFlush(echo);
     }
+
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
